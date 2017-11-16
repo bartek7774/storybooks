@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const mongoose = require('./db/mongoose');
 const passport = require('passport');
+const exphbs = require('express-handlebars');
+const path = require('path');
 
 const port = process.env.PORT;
 
@@ -12,13 +14,16 @@ const port = process.env.PORT;
 require('./config/passport')(passport);
 
 //Load Routes
+const index = require('./routes/index');
 const auth = require('./routes/auth');
 
 const app = express();
 
-app.get('/', (req, res) => {
-  res.send('It works!');
-});
+// Serve static files: css, js, fonts
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.engine('.hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }));
+app.set('view engine', '.hbs');
 
 app.use(cookieParser());
 app.use(session({
@@ -37,7 +42,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// Use Routes for auth
+// Use Routes
+app.use('/', index);
 app.use('/auth', auth);
 
 app.listen(port, () => {
