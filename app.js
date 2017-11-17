@@ -7,7 +7,7 @@ const mongoose = require('./db/mongoose');
 const passport = require('passport');
 const exphbs = require('express-handlebars');
 const path = require('path');
-
+const helpers=require('./lib/helpers/helpers');
 const port = process.env.PORT;
 
 // Passport Config
@@ -16,13 +16,14 @@ require('./config/passport')(passport);
 //Load Routes
 const index = require('./routes/index');
 const auth = require('./routes/auth');
+const stories = require('./routes/stories');
 
 const app = express();
 
 // Serve static files: css, js, fonts
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.engine('.hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }));
+app.engine('.hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' , helpers: helpers}));
 app.set('view engine', '.hbs');
 
 app.use(cookieParser());
@@ -45,6 +46,7 @@ app.use((req, res, next) => {
 // Use Routes
 app.use('/', index);
 app.use('/auth', auth);
+app.use('/stories', stories);
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}.`);

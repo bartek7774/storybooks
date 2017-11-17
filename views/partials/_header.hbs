@@ -1,11 +1,11 @@
 <nav class="grey darken-3">
   <div class="container">
     <div class="nav-wrapper">
-      <a href="/stories" class="brand-logo center">
+      <a href="/" class="brand-logo center">
         StoryBooks
       </a>
-      <a href="#" data-activates="slide-out" class="button-collapse show-on-large">
-        <i class="small material-icons">menu</i>
+      <a href="#" data-activates="main-menu" class="button-collapse show-on-large">
+        <i class="fa fa-bars"></i>
       </a>
       {{!-- RIGHT NAV --}}
       <ul class="right hide-on-small-only">
@@ -27,3 +27,50 @@
     </div>
   </div>
 </nav>
+
+<ul id="main-menu" class="side-nav">
+  {{#if user}}
+  <li>
+    <div class="user-view">
+      <div class="background">
+        <img src="images/office.jpg">
+      </div>
+      <a href="#!user">
+        <img class="circle" src="images/yuna.jpg">
+      </a>
+      <a href="#!name">
+        <span class="white-text name">John Doe</span>
+      </a>
+      <a href="#!email">
+        <span class="white-text email">jdandturk@gmail.com</span>
+      </a>
+    </div>
+  </li>
+  <li>
+    <a href="/stories">
+      <i class="material-icons">book</i>Public stories</a>
+  </li>
+  <li>
+    <a href="/dashboard">
+      <i class="material-icons">settings_applications</i>Dashboard</a>
+  </li>
+  <li>
+    <a href="/mystories">
+      <i class="material-icons">person</i>My Stories</a>
+  </li>
+  <li>
+    <a href="/auth/logout">
+      <i class="material-icons">exit_to_app</i>Logout</a>
+  </li>
+
+  {{else}}
+  <li>
+    <a href="/auth/google" class="btn red darken-1 text-white">
+      <i class="fa fa-google"></i> Login with Google</a>
+  </li>
+  <li>
+    <a href="/stories">
+      <i class="material-icons">book</i>Public stories</a>
+  </li>
+  {{/if}}
+</ul>
