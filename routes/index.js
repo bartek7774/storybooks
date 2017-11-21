@@ -15,16 +15,12 @@ router.get('/dashboard/:id?', ensureAuthentication, (req, res) => {
   .or([{'user':req.user._id},{ 'status': 'public' }])
   .populate('user')
   .then(stories=>{
-    res.render('index/dashboard',{stories,usr:stories[0].user});
+    res.render('index/dashboard',{stories});
   });
 });
 
 router.get('/about', (req, res) => {
   res.render('index/about');
-});
-
-router.put('/:id',(req,res)=>{
-  res.send(req.params.id);
 });
 
 module.exports = router;
