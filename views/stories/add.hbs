@@ -4,12 +4,12 @@
   <form class="col s12" method="post" action="/stories">
     <div class="row">
       <div class="input-field">
-        <input id="title" type="text" class="validate">
+        <input name="title" id="title" type="text" class="validate">
         <label for="title">Title</label>
       </div>
     </div>
     <div class="row">
-      <select>
+      <select name="status">
         <option value="public" selected>Public</option>
         <option value="private">Private</option>
         <option value="unpublished">Unpublished</option>
@@ -19,7 +19,7 @@
     <div class="row">
       <div class="input-field col s12">
         <h5>Tell Us Your Story:</h5>
-        <textarea id="story" class="materialize-textarea" data-length="100"></textarea>
+        <textarea name="body" id="story" class="materialize-textarea" data-length="150"></textarea>
       </div>
     </div>
     <div class="row">

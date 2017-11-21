@@ -1,1 +1,69 @@
-<h1>Show story</h1>
+<br>
+<div class="row">
+  <div class="col s12 m9">
+    <div class="card">
+      <div class="card-content">
+        <h3>{{story.title}}
+          <small>{{{editIcon story.user.id user.id story.id false}}}</small>
+        </h3>
+        <p class="right-align">{{formatDate story.date 'HH:MM DD/MM/YY'}}</p>
+        <br>
+        <p>{{{story.body}}}</p>
+      </div>
+    </div>
+    {{#if story.allowComments}}
+
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">Comments:</span>
+        {{#if user}}
+        <form action="/stories/comment/{{story.id}}" method="POST">
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">comment</i>
+              <textarea id="textarea1" class="materialize-textarea" name="commentBody" data-length="120"></textarea>
+              <label for="textarea1">Add comment</label>
+            </div>
+            <div class="center-align">
+              <button id="addCommentButton" type="submit" class="waves-effect waves-light btn">Send
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </form>
+        {{else}}
+        <p>Please
+          <a href="/auth/google">log in</a> to leave a comment.</p>
+        {{/if}}
+      </div>
+    </div>
+    {{#each story.comments}}
+    <div class="card">
+      <div class="card-content">
+        <p class="card-title">{{commentBody}}</p>
+        <div class="chip">
+          <img src="{{commentUser.image}}" alt="" class="circle"> 
+          <a href="/stories/user/{{commentUser.id}}">{{commentUser.firstName}} {{commentUser.lastName}}</a> 
+        </div>
+        <br>
+        <small>Posted: {{formatDate commentDate 'HH:MM:SS DD/MM/YY'}}</small>
+      </div>
+    </div>
+    {{/each}} {{/if}}
+  </div>
+  <div class="col s12 m3">
+    <div class="card center-align">
+      <div class="card-content">
+        <div class="card-title">
+          <p>{{story.user.firstName}}
+            <span class="hide-on-med-and-down">{{story.user.lastName}}</span>
+          </p>
+        </div>
+        <img src="{{story.user.image}}" class="circle responsive-img" alt="Author">
+      </div>
+      <div class="card-action">
+        <a href="/dashboard/{{story.user.id}}">Show More</a>
+      </div>
+    </div>
+  </div>
+</div>

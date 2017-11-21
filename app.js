@@ -3,13 +3,16 @@ require('./config/config');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const mongoose = require('./db/mongoose');
 const passport = require('passport');
 const exphbs = require('express-handlebars');
 const path = require('path');
-const helpers=require('./lib/helpers/helpers');
+const helpers=require('./helpers/handlebars/hbs');
+const bodyParser = require('body-parser')
+const methodOverride=require('method-override');
 const port = process.env.PORT;
 
+// load DB config
+require('./db/mongoose');
 // Passport Config
 require('./config/passport')(passport);
 
@@ -19,6 +22,10 @@ const auth = require('./routes/auth');
 const stories = require('./routes/stories');
 
 const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+app.use(methodOverride('_method'))
 
 // Serve static files: css, js, fonts
 app.use(express.static(path.join(__dirname, 'public')));

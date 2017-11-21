@@ -16,3 +16,19 @@ body {
 footer{
   margin-top: 20px;
 }
+
+.fab-pos{
+  position: absolute;
+  right: -5px;
+  top: 8px;
+}
+.card-text{
+  height: 100px;
+}
+.capitalize{
+  text-transform: capitalize;
+}
+
+#delete-form{
+  display: inline;
+}

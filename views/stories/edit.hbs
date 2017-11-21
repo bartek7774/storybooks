@@ -1,1 +1,37 @@
 <h1>Edit story</h1>
+
+<div class="row">
+  <form class="col s12" method="post" action="/stories/{{story.id}}?_method=PUT">
+    <input type="hidden" name="_method" value="PUT">
+    <div class="row">
+      <div class="input-field">
+        <input name="title" id="title" type="text" class="validate" value="{{story.title}}">
+        <label for="title">Title</label>
+      </div>
+    </div>
+    <div class="row">
+      <select name="status">
+        {{#select story.status}}
+        <option value="public">Public</option>
+        <option value="private">Private</option>
+        <option value="unpublished">Unpublished</option>
+        {{/select}}
+      </select>
+      <label>Status</label>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <h5>Tell Us Your Story:</h5>
+        <textarea name="body" id="story" class="materialize-textarea" data-length="150">{{story.body}}</textarea>
+      </div>
+    </div>
+    <div class="row">
+      <p class="center-align">
+        <input name="allowComments" type="checkbox" class="filled-in" id="filled-in-box"
+        {{#if story.allowComments}} checked="checked" {{/if}} />
+        <label for="filled-in-box">Allow comments</label>
+      </p>
+    </div>
+    <input type="submit" value="Save" class="btn col s12">
+  </form>
+</div>
