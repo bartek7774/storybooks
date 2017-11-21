@@ -22,6 +22,19 @@ let UserSchema = new mongoose.Schema({
   }
 });
 
+UserSchema.statics.findOrCreate = function (profile, newUser) {
+  let User = this;
+  return User.findOne({ googleID: profile.id })
+    .then(user => {
+      if (user) {return Promise.resolve(user);}
+      else {
+        new User(newUser).save().then(user => {
+          return Promise.resolve(user);
+        });
+      }
+    }).catch(err => Promise.reject(err));
+}
+
 let User = mongoose.model('users', UserSchema);
 
 module.exports = { User };

@@ -19,16 +19,28 @@ module.exports = function (passport) {
         email: profile.emails[0].value,
         image: image
       };
-
+  
+      /*
+      User.findOrCreate(profile,newUser)
+        .then(user=>{
+          done(null,user);
+        }).catch(err=>done(err)); 
+      */
+      
+      // Check for existing user
       User.findOne({
         googleID: profile.id
       }).then(user => {
-        if (user) return done(null, user);
-        new User(newUser).save().then(user => {
-          return done(null, user);
-        });
-        done(null,user);
-      }).catch((err)=> {console.log(err); done(err); });
+        if(user){
+          // Return user
+          done(null, user);
+        } else {
+          // Create user
+          new User(newUser)
+            .save()
+            .then(user => done(null, user));
+        }
+      });
     }
   ));
   passport.serializeUser((user,done)=>{
